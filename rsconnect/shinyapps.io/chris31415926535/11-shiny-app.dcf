@@ -1,0 +1,12 @@
+name: 11-shiny-app
+title: 11-shiny-app
+username:
+account: chris31415926535
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 3369824
+bundleId: 3957920
+url: https://chris31415926535.shinyapps.io/11-shiny-app/
+when: 1607391146.03655
+asMultiple: FALSE
+asStatic: FALSE

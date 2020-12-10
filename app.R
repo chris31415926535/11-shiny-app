@@ -12,26 +12,28 @@ library(tidytext)
 library(stringr)
 library(dplyr)
 
-afinn <- tidytext::get_sentiments("afinn")
-#pred <- prob <- NULL
-
 load("model_specs.Rdata")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
     
     # Application title
-    titlePanel("Old Faithful Geyser Data"),
+    titlePanel("Predict Yelp Ratings from Review Text"),
     
     
    
     fluidRow(
-        helpText("This is where I explain things."),
-        column(3, actionButton("button", "Predict Rating"),
+        column(3, 
+               shiny::h4("Controls & Results"),
+               shiny::br(),
+               actionButton("button", "Predict Rating"),
+               shiny::br(),
+               shiny::br(),
                textOutput("prediction"),
                textOutput("probability")),
         column(9, 
-               textAreaInput("reviewtext", "Review Text", "This is a sample restaurant review. I hated this place.", cols = 160, rows = 10)
+               shiny::h4("Input Review Text"),
+               textAreaInput("reviewtext", "", "This is a sample restaurant review. I hated this place.", cols = 160, rows = 10)
         )
     )
     
@@ -40,7 +42,8 @@ ui <- fluidPage(
 # Define server logic to rate restaurant reviews
 server <- function(input, output) {
     prob <- eventReactive(input$button, {
-        prob_text(input$reviewtext, model_coefs, qtiles)
+        prob_text(input$reviewtext, model_coefs, qtiles) %>%
+            base::round(digits = 3)
         
     })
 
